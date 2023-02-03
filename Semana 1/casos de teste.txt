@@ -1,0 +1,40 @@
+Teste 1: adicionar um novo usuário a lista, em uma posição que ainda não exista um usuário.
+
+pré requisito: respectiva posição do usuário estar vazia
+
+Entrada esperada: xxxxxxx(nome do usuario,email do usuário)
+Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário está na tabela hash, na posição equivalente ao nome dele.
+
+teste 2 : alterar um usuário que já está na tabela hash.
+
+pré requisito: o usuário deve existir na tabela
+
+Entrada esperada: xxxxxxx(nome do usuário) ou (email do usuário)
+Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário 
+
+
+teste 3 :deletar um usuário da tabela hash
+
+pré requisito: o usuário deve existir na tabela, e neste caso de teste, na sua posição equivalente
+
+Entrada esperada: xxxxxxx(nome do usuário) ou (email do usuário)
+Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário foi excluído da tabela hash
+
+teste 4: adicionar um novo usuário a tabela hash, em uma posição em que um usuário já esteja registrado
+
+pré requisito: usuário já registrado na posição em que se deseja registrar o novo usuário
+
+Entrada esperada: xxxxxxx(nome do usuario,email do usuário)
+
+Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário está na tabela hash, na próxima posição disponível após sua posição equivalente.
+
+teste 5: deletar um usuário que foi registrado em outra posição na tabela, pela sua já estar ocupada
+
+pre requisito: teste 4 ja realizado
+
+Entrada esperada: xxxxxxx(nome do usuario,email do usuário), devem ser os mesmos do usuário que foi foi registrado no teste 4
+
+Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário que foi excluído foi realmente o usuário desejado, mesmo que ele não esteja salvo na sua posição equivalente. 
+
+
+
