@@ -1,40 +1,106 @@
-Teste 1: adicionar um novo usuário a lista, em uma posição que ainda não exista um usuário.
+////////
+obs: para rodar um teste os anteriores a eles precisam ter sido executados
 
-pré requisito: respectiva posição do usuário estar vazia
+Teste 1: adicionar ou mais usuário a lista, em uma posição que ainda não exista um usuário, colocando seu IMEI e email.
 
-Entrada esperada: xxxxxxx(nome do usuario,email do usuário)
-Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário está na tabela hash, na posição equivalente ao nome dele.
+pré requisito: respectiva posição do usuário, ou usuários devem estar vazias.
 
-teste 2 : alterar um usuário que já está na tabela hash.
+  Hash clientesHash(11);
+   long long ras[5]   = {
+     929001100012704, 899002300031233, 1200000011012330,
+     73200722042112, 987380010052204};
+  string login[5] = {
+    "pedroag@gmail.com", "pablo95@gmail.com", "Joãopaulista@gmail.com",
+    "Carlos63artes@gmail.com", "Lucasaugusto300@gmail.com"}; 
+  for (int i = 0; i < 5; i++) {
+    Cliente cliente = Cliente(ras[i], login[i]);
+    clientesHash.inserirItem(cliente);
+  }
 
-pré requisito: o usuário deve existir na tabela
+Saída esperada: Após chamar a função clientesHash.print(), visualizar se os usuários se encontram na tabela hash, ela deve estar assim:
 
-Entrada esperada: xxxxxxx(nome do usuário) ou (email do usuário)
-Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário 
+0:1200000011012330, Joãopaulista@gmail.com
+1:-1, 
+2:899002300031233, pablo95@gmail.com
+3:-1, 
+4:929001100012704, pedroag@gmail.com
+5:73200722042112, Carlos63artes@gmail.com
+6:-1, 
+7:-1, 
+8:-1, 
+9:-1, 
+10:987380010052204, Lucasaugusto300@gmail.com
 
 
-teste 3 :deletar um usuário da tabela hash
+
+teste 2 :deletar um usuário da tabela hash, salvo em sua devida posição
 
 pré requisito: o usuário deve existir na tabela, e neste caso de teste, na sua posição equivalente
 
-Entrada esperada: xxxxxxx(nome do usuário) ou (email do usuário)
-Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário foi excluído da tabela hash
+Entrada esperada:   Cliente cliente_deletar(1200000011012330, "");
+  clientesHash.deletarItem(cliente_deletar);
 
-teste 4: adicionar um novo usuário a tabela hash, em uma posição em que um usuário já esteja registrado
+Saída esperada: Após chamar a função clientesHash.print(), visualizar se o usuário de emei 1200000011012330, vulgo Joãopaulista@gmail.com,foi excluído do idice 0 da tabela hash:
+0:-2, 
 
-pré requisito: usuário já registrado na posição em que se deseja registrar o novo usuário
 
-Entrada esperada: xxxxxxx(nome do usuario,email do usuário)
+teste 3: recuperar informações de um usuário que foi salvo em sua devida posição
 
-Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário está na tabela hash, na próxima posição disponível após sua posição equivalente.
+pré requisito: usuário que se deseja buscar deve estar registrado na tabela
 
-teste 5: deletar um usuário que foi registrado em outra posição na tabela, pela sua já estar ocupada
+Entrada esperada: 
+ Cliente cliente(929001100012704,"");
+  bool encontrado = false;
+  clientesHash.recuperarItem(cliente, encontrado);
+  cout << cliente.getLogin() << "->"<< "este e o login referente ao Imei passado" << endl << endl;
 
-pre requisito: teste 4 ja realizado
+Saída esperada:  verificar o console e ver se o login, referente ao Imei passado esta printado corretamente, no caso:
+pedroag@gmail.com->este e o login referente ao Imei passado
 
-Entrada esperada: xxxxxxx(nome do usuario,email do usuário), devem ser os mesmos do usuário que foi foi registrado no teste 4
+--------------------------------------------------------------------
+Os testes abaixo são testes referente ao tratamento de colisões
 
-Saída esperada: chamar a função xxxxxxx() e visualizar se o usuário que foi excluído foi realmente o usuário desejado, mesmo que ele não esteja salvo na sua posição equivalente. 
+
+teste 4: adicionar um novo usuário a tabela hash, em uma posição em que um usuário já esteja registrado, tratando a colisão
+
+pré requisito: deve existir um usuário já registrado na posição em que se deseja registrar o novo usuário
+
+Entrada esperada:  Cliente cliente_adicionar(929001100012748, "paulocarioca@gmail.com");
+  			clientesHash.inserirItem(cliente_adicionar);
+
+Saída esperada: Após chamar a função clientesHash.print(),  visualizar se o usuário de Emei 929001100012748, e login paulocarioca@gmail foi salvo no primeiro espaço vago após pedroag@gmail.com de Imei 929001100012704, devido ao tratamento de colisão:
+
+4:929001100012704, pedroag@gmail.com
+5:73200722042112, Carlos63artes@gmail.com
+6:929001100012748, paulocarioca@gmail.com
+
+
+teste 5: pegar informações de um usuário que foi registrado em outra posição na tabela, devido ao tratamento de colisão.
+
+
+pre requisitos: O usuário que se deseja obter as informações deve estar salvo na tabela, uma ou mais posições após a posição em que seria salvo normalmente.
+
+Entrada esperada: 
+ Cliente cliente(929001100012704,"");
+  bool encontrado = false;
+  clientesHash.recuperarItem(cliente, encontrado);
+  cout << cliente.getLogin() << "->"<< "este e o login referente ao Imei passado" << endl << endl;
+
+Saída esperada: verificar o console e ver se o login, referente ao Imei passado esta printado corretamente, no caso:
+paulocarioca@gmail.com->este e o login referente ao Imei passado
+
+
+
+teste 6: deletar um usuário que foi registrado em outra posição na tabela, devido ao tratamento de colisão.
+
+pré requisito: O usuário que se deseja deletar deve estar salvo na tabela, uma ou mais posições após a posição em que seria salvo normalmente.
+
+Entrada esperada:   Cliente cliente_deletar_colisao(929001100012748, "");
+  			clientesHash.deletarItem(cliente_deletar);
+
+Saída esperada: Após chamar a função clientesHash.print(), visualizar se o usuário de Emei 929001100012748, paulocarioca@gmail.com, deve ter removido do index 6 da tabela hash, mesmo tendo sido salvo casas a frente, devido ao tratamento de colisão: 
+6:-2, 
+
 
 
 
